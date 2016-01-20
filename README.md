@@ -1,9 +1,10 @@
 `git-imp`
 =========
 
-This is a collection of Git command plugins that I've created and keep them here to maintain them and in the hope that others find them useful. Most of the stuff I develope is named _Something_**Imp**. So I'm calling this collection `git-imp`. But there is no actual command called `git-imp`.
+This is a collection of Git command plugins that I've created and keep them here to maintain them and in the hope that others may find them useful. Most of the stuff I develope is named _Something_**Imp**. So I'm calling this collection `git-imp`. But there is no actual command called `git-imp` in the collection.
 
-These are BASH and POSIX scripts and are not expected to work in all environments. And in fact require at least BASH 3 due to use of BASH_REMATCH and such in certain cases. See Command Chart bellow. I currently have no immediate plans of porting these scripts to be entirely POSIX compliant. Though that is a possibility in the future. And at least one of the scripts has a dependency on [BASHimp][] for option parsing. It is not included in this repo.
+These are BASH and POSIX scripts I developed on my Mac and are not expected to work in all environments. Though they _should_ work in most UNIX/Linux environments. And in fact require at least BASH 3 due to use of BASH_REMATCH and such in many cases. See Command Chart bellow for details. I currently have no immediate plans of porting these scripts to be entirely POSIX compliant. Though that is a possibility in the future. And at least one of the scripts has a dependency on [BASHimp][] for option parsing. It is not included in this repo. But is another open source project of mine.
+
 
 The Commands
 ------------
@@ -12,7 +13,7 @@ The Commands
 
 Copies the current (uncommited) file specified by the user. Does a checkout of the same file and then runs opendiff (Mac: opendiff opens FileMerge) or diff on the two files. It outputs an error if there is no diffing tool found.
 
-Example: `git cpdiff _FILENAME_`
+Example: `git cpdiff FILENAME`
 
 
 ### `git-current`
