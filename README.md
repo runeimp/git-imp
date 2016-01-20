@@ -103,7 +103,7 @@ Examples:
 Installation
 ------------
 
-Copy the scripts (including `bashimp` if you don't already have it) into your `bin` directory. All git commands should work as expected now.
+Copy the scripts (including `bashimp` if you don't already have it) into your `bin` directory. All git commands should work as expected now. In the `bin` directory you can make sure all the commands are executable with something like `chmod u+x git-*` for the current user only or `chmod a+x git-*` for all users. But this may not be necessary. Test with `git hist 5` in an active repo to make sure it's working as expected.
 
 
 [BASHimp]: https://github.com/runeimp/bashimp
