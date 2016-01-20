@@ -89,15 +89,15 @@ Examples:
 
 ### Command Chart
 
-| Command          | Version | Usage     | Spec    | Dependencies | Description                                                                               |
-| -------          | ------- | -----     | ----    | ------------ | -----------                                                                               |
-| `git-cpdiff`     | 1.0.0   | Safe      | BASH 3+ |              | Copies an uncommited file and diffs it against the prior commited file.                   |
-| `git-current`    | 1.0.0   | Safe      | BASH 3+ |              | Displays the current branch.                                                              |
-| `git-deep-clone` | 1.0.0   | Safe      | BASH 3+ |              | Clones a repo recursively (gets submodules) and tracks remote branches.                   |
-| `git-hist`       | 1.0.0   | Safe      | POSIX   |              | Displays a simple, graphical history of the repo limted by a specified number of commits. |
-| `git-rbt`        | 1.0.0   | Safe      | BASH 3+ |              | Sets up remote branch tracking in a repo.                                                 |
-| `git-squash`     | 1.0.0   | Dangerous | POSIX   |              | Initiates an interactive rebase for the specified number of commits.                      |
-| `git-subswitch`  | 1.2.0   | Safe      | BASH 3+ | [BASHimp][]  | Runs checkout or submodule init and update for all subdirectories that are submodules.    |
+| Command                                                 | Version | Usage     | Spec                                             | Dependencies | Description                                                                               |
+| -------                                                 | ------- | -----     | ----                                             | ------------ | -----------                                                                               |
+| `git-cpdiff`                                            | 1.0.0   | Safe      | <span style="white-space: nowrap">BASH 3+</span> |              | Copies an uncommited file and diffs it against the prior commited file.                   |
+| `git-current`                                           | 1.0.0   | Safe      | BASH 3+                                          |              | Displays the current branch.                                                              |
+| <code style="white-space: nowrap">git-deep-clone</code> | 1.0.0   | Safe      | BASH 3+                                          |              | Clones a repo recursively (gets submodules) and tracks remote branches.                   |
+| `git-hist`                                              | 1.0.0   | Safe      | POSIX                                            |              | Displays a simple, graphical history of the repo limted by a specified number of commits. |
+| `git-rbt`                                               | 1.0.0   | Safe      | BASH 3+                                          |              | Sets up remote branch tracking in a repo.                                                 |
+| `git-squash`                                            | 1.0.0   | Dangerous | POSIX                                            |              | Initiates an interactive rebase for the specified number of commits.                      |
+| `git-subswitch`                                         | 1.2.0   | Safe      | BASH 3+                                          | [BASHimp][]  | Runs checkout or submodule init and update for all subdirectories that are submodules.    |
 
 
 Installation
