@@ -78,7 +78,7 @@ Examples:
 1. `git subswitch BRANCHNAME` will enter all subdirectories of the current directory, test if it's a submodule, and then `checkout` that submodule to the specified _BRANCHNAME_.
 2. `git subswitch --basepath path/you/choose BRANCHNAME` does the same as above but will `cd` to the specified _basepath_ first. Then loop through the subdirectories as above.
 3. `git subswitch --pull BRANCHNAME` does the same as #1 but will also `git pull` on the submodule after checkout to the specified _BRANCHNAME_.
-4. `git subswitch --init BRANCHNAME` goes into each subdirectory and does `git submodule init` then `git submodule update`. This is handy if you forgot to specify `--recursive` with a `git clone` call on a repo with submodules.
+4. `git subswitch --init` goes into each subdirectory of the current directory, test if it's _not_ an initialized submodule yet, and does `git submodule init` then `git submodule update`. This is handy if you forgot to specify `--recursive` with a `git clone` call on a repo with submodules.
 
 `--basepath`
 : This can be specified with any other option.
