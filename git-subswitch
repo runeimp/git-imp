@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ###################
-# git-subswitch v1.1.0
+# git-subswitch v1.2.0
 #
 # @author RuneImp <runeimp@gmail.com>
 # @licenses http://opensource.org/licenses/MIT
@@ -9,6 +9,7 @@
 ###
 # ChangeLog
 # ---------
+# 2016-01-19  1.2.0       Added submodule init and update option
 # 2015-07-13  1.1.0       Added submodule .git 'sanity check'
 # 2015-06-??  1.0.0       Initial script creation
 #
@@ -17,47 +18,63 @@
 #
 # Setup Version Info
 #
-BASHIMP_VER_NUMBER='1.1.0'
+BASHIMP_VER_NUMBER='1.2.0'
 BASHIMP_VER_LABEL="Git Subswitch v$BASHIMP_VER_NUMBER"
 
 #
 # Configure OPTIONimp mode of BASHimp
 #
 read -r -d '' OPTIONIMP_CONF <<'HEREDOC_EOD'
---basepath      $base_path       optional   Specify the path to the submodules to manage
+--basepath      $base_path       optional   Specify the path to the submodules to manage.
+-i, --init      $switch_init     boolean    Do a git submodule init and update after switching the branch.
 -p, --pull      $switch_pull     boolean    Do a git pull after switching the branch.
 HEREDOC_EOD
 
 #
 # Load BASHimp
 #
+# source ~/bin/bashimp
 source bashimp
 
-
-if [ ${#OPTIONIMP_ARGUMENTS[@]} -eq 0 ]; then
-	echo "You must specify the branch to switch to" 1>&2
-	exit 1
+if [[ ${#OPTIONIMP_ARGUMENTS[@]} == 0 ]] && [[ $switch_init == false ]]; then
+  echo "  WARNING: You must specify the branch to switch to." 1>&2
+  echo "  Unless you've specified the --init option." 1>&2
+  exit 1
 else
-	switch_branch="${OPTIONIMP_ARGUMENTS[0]}"
+  switch_branch="${OPTIONIMP_ARGUMENTS[0]}"
 fi
 
 # echo "\${base_path}: ${base_path}"
 # echo "\${switch_pull}: ${switch_pull}"
 # echo "\${OPTIONIMP_ARGUMENTS[@]}: ${OPTIONIMP_ARGUMENTS[@]} [${#OPTIONIMP_ARGUMENTS[@]}]"
 
-if [ -n "$base_path" ]; then
-	cd "$base_path"
+if [[ -n "$base_path" ]]; then
+  cd "$base_path"
 fi
 
 for submodule in $(ls)
 do
-	if [ -f "$submodule/.git" ]; then
-		echo "submodule: $submodule"
-		cd "$submodule"
-		git checkout "$switch_branch"
-		if [ $switch_pull == true ]; then
-			git pull
-		fi
-		cd ..
-	fi
+  if [[ -d "$submodule" ]]; then
+    cd "$submodule"
+
+    if [[ -f "./.git" ]]; then
+      echo "  Switching to submodule: $submodule"
+      git checkout "$switch_branch"
+      if [[ $switch_pull == true ]]; then
+        echo "  Pulling submodule data"
+        git pull
+      fi
+    else
+      if [[ $switch_init == true ]]; then
+        echo "  Initializing and updating submodule: $submodule"
+        git submodule init
+        git submodule update
+      else
+        echo "  WARNING: `pwd` is not a git submodule" 1>&2
+        exit 2
+      fi
+    fi
+
+    cd ..
+  fi
 done

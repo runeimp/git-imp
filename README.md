@@ -3,7 +3,7 @@
 
 This is a collection of Git command plugins that I've created and keep them here to maintain them and in the hope that others find them useful. Most of the stuff I develope is named _Something_**Imp**. So I'm calling this collection `git-imp`. But there is no actual command called `git-imp`.
 
-These are BASH scripts and are not expected to work in any other shell. And in fact require at least BASH 3 due to use of BASH_REMATCH and such. I currently have no intention of porting these scripts to be more POSIX compliant. Though that is a possibility in the future. And at least one of the scripts has a dependency on [BASHimp][] for option parsing. It is not included in this repo.
+These are BASH and POSIX scripts and are not expected to work in all environments. And in fact require at least BASH 3 due to use of BASH_REMATCH and such in certain cases. See Command Chart bellow. I currently have no immediate plans of porting these scripts to be entirely POSIX compliant. Though that is a possibility in the future. And at least one of the scripts has a dependency on [BASHimp][] for option parsing. It is not included in this repo.
 
 The Commands
 ------------
@@ -86,7 +86,7 @@ Examples:
 : This option will override the default behavior; for obvious reasons.
 
 
-### Command Table
+### Command Chart
 
 | Command          | Version | Usage     | Spec    | Dependencies | Description                                                                               |
 | -------          | ------- | -----     | ----    | ------------ | -----------                                                                               |
@@ -96,7 +96,7 @@ Examples:
 | `git-hist`       | 1.0.0   | Safe      | POSIX   |              | Displays a simple, graphical history of the repo limted by a specified number of commits. |
 | `git-rbt`        | 1.0.0   | Safe      | BASH 3+ |              | Sets up remote branch tracking in a repo.                                                 |
 | `git-squash`     | 1.0.0   | Dangerous | POSIX   |              | Initiates an interactive rebase for the specified number of commits.                      |
-| `git-subswitch`  | 1.1.0   | Safe      | BASH 3+ | [BASHimp][]  | Runs checkout or submodule init and update for all subdirectories that are submodules.    |
+| `git-subswitch`  | 1.2.0   | Safe      | BASH 3+ | [BASHimp][]  | Runs checkout or submodule init and update for all subdirectories that are submodules.    |
 
 
 Installation
