@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ###################
-# git-subswitch v1.0.0
+# git-subswitch v1.1.0
 #
 # @author RuneImp <runeimp@gmail.com>
 # @licenses http://opensource.org/licenses/MIT
@@ -9,6 +9,7 @@
 ###
 # ChangeLog
 # ---------
+# 2015-07-13  1.1.0       Added submodule .git 'sanity check'
 # 2015-06-??  1.0.0       Initial script creation
 #
 
@@ -16,7 +17,7 @@
 #
 # Setup Version Info
 #
-BASHIMP_VER_NUMBER='0.1.0'
+BASHIMP_VER_NUMBER='1.1.0'
 BASHIMP_VER_LABEL="Git Subswitch v$BASHIMP_VER_NUMBER"
 
 #
@@ -50,11 +51,13 @@ fi
 
 for submodule in $(ls)
 do
-	echo "submodule: $submodule"
-	cd "$submodule"
-	git checkout "$switch_branch"
-	if [ $switch_pull == true ]; then
-		git pull
+	if [ -f "$submodule/.git" ]; then
+		echo "submodule: $submodule"
+		cd "$submodule"
+		git checkout "$switch_branch"
+		if [ $switch_pull == true ]; then
+			git pull
+		fi
+		cd ..
 	fi
-	cd ..
 done

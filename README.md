@@ -96,7 +96,7 @@ Examples:
 | `git-hist`       | 1.0.0   | Safe      | POSIX   |              | Displays a simple, graphical history of the repo limted by a specified number of commits. |
 | `git-rbt`        | 1.0.0   | Safe      | BASH 3+ |              | Sets up remote branch tracking in a repo.                                                 |
 | `git-squash`     | 1.0.0   | Dangerous | POSIX   |              | Initiates an interactive rebase for the specified number of commits.                      |
-| `git-subswitch`  | 1.0.0   | Safe      | BASH 3+ | [BASHimp][]  | Runs checkout or submodule init and update for all subdirectories that are submodules.    |
+| `git-subswitch`  | 1.1.0   | Safe      | BASH 3+ | [BASHimp][]  | Runs checkout or submodule init and update for all subdirectories that are submodules.    |
 
 
 Installation
