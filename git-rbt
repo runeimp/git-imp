@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+###################
+# git-rbt v1.0.0
+#
+# Setup tracking for all remote branches
+#
+# @author RuneImp <runeimp@gmail.com>
+# @licenses http://opensource.org/licenses/MIT
+#
+###
+# ChangeLog
+# ---------
+# 2016-01-19  1.0.0       Initial script creation
+#
+
+##
+# Ensure we're in a Git repo
+#
+if [[ -d ./.git ]]
+then
+	###
+	# Steps:
+	# 1. Get remote branch list
+	# 2. Filter out HEAD references, etc.
+	# 3. Filter out master branch. It's redundant.
+	#
+	git branch -r | grep -v -- '->' | while read remote
+	do
+		git branch --track ${remote##origin/} $remote 2>&1 | grep -v ' already exists'
+	done
+else
+	echo "  This is not a Git repo."
+	echo "  Please run this command from within a Git repository."
+	exit 1
+fi
+
+exit 0

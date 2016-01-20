@@ -1,0 +1,23 @@
+#!/bin/sh
+###################
+# git-squash v1.0.0
+#
+# @author RuneImp <runeimp@gmail.com>
+# @licenses http://opensource.org/licenses/MIT
+#
+###
+# ChangeLog
+# ---------
+# 2015-07-15  1.0.0       Initial script creation
+#
+
+
+if [ $# -eq 0 ]; then
+	echo "You must specify the number of commits to squash."
+	exit 1
+elif [ $1 -eq 1 ]; then
+	echo "You really only want to squash 1 commit?"
+	git rebase -i HEAD~$1
+else
+	git rebase -i HEAD~$1
+fi

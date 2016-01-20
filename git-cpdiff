@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+###################
+# git-cpdiff v1.0.0
+#
+# @author RuneImp <runeimp@gmail.com>
+# @licenses http://opensource.org/licenses/MIT
+#
+###
+# ChangeLog
+# ---------
+# 2015-08-04  1.0.0      Initial script creation
+#
+
+
+if [ -z "$1" ]; then
+	echo "Git Copy Diff requires the filename to copy and diff" 1>&2
+	exit 1
+else
+	file_base="$1"
+fi
+
+if [[ "$file_base" =~ ^(.+)(\.[a-z]+)$ ]]; then
+	# echo "\${BASH_REMATCH[@]}: ${BASH_REMATCH[@]}"
+	if [[ -n "${BASH_REMATCH[2]}" ]]; then
+		# echo "\${BASH_REMATCH[2]}: ${BASH_REMATCH[2]}"
+		file_ext="${BASH_REMATCH[2]}"
+		file_old="${file_base}.old${file_ext}"
+		file_new="${file_base}.new${file_ext}"
+		cp "$file_base" "$file_new"
+		git checkout "$file_base"
+		cp "$file_base" "$file_old"
+
+		if [[ $(type opendiff 2>&1 > /dev/null; echo $?) == 0 ]];
+		then
+			opendiff "$file_old" "$file_new"
+		elif [[ $(type diff 2>&1 > /dev/null; echo $?) == 0 ]];
+		then
+			diff "$file_old" "$file_new"
+		else
+			echo "No diff tool found" 1>&2
+			exit 3
+		fi
+
+		mv "$file_new" "$file_base"
+		rm "$file_old"
+	else
+		echo "No file extesion for '$1'?" 1>&2
+		exit 2
+	fi
+fi

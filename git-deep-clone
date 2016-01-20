@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+###################
+# git-deep-clone v1.0.0
+#
+# Script to clone a repo, initialize it's submodules and track all remote branches.
+#
+# @author RuneImp <runeimp@gmail.com>
+# @licenses http://opensource.org/licenses/MIT
+#
+###
+# ChangeLog
+# ---------
+# 2016-01-19  1.0.0       Initial script creation
+#
+
+re_repo='.+/([a-zA-Z_-]+)\.git'
+
+if [[ $# > 0 ]]; then
+	remote_repo="$1"
+	if [[ $# > 1 ]]; then
+		local_repo="$2"
+	else
+		if [[ "$remote_repo" =~ $re_repo ]]; then
+			local_repo="${BASH_REMATCH[1]}"
+		fi
+	fi
+else
+	echo "Git Deep-Clone requires the name of the remote repository to clone."
+	exit 1
+fi
+
+echo "remote_repo: $remote_repo"
+echo "local_repo: $local_repo"
+exit 69
+
+git clone --recursive "$remote_repo" "$local_repo"
+
+##
+# 1. Ensure the cloning was successful
+# 2. Make sure the repo's directory was created
+# 3. Change to that directory
+#
+if [[ $? = 0 ]] && [[ -d "./$local_repo" ]]; then
+	cd "./$local_repo"
+fi
+
+##
+# Ensure we're in a Git repo
+#
+if [[ -d './.git' ]]
+then
+	###
+	# Steps:
+	# 1. Get remote branch list
+	# 2. Filter out HEAD references, etc.
+	#
+	git branch -r | grep -v -- '->' | while read remote
+	do
+		# printf "${remote}\t\t${remote##origin/}\n" 2>&1 | grep -v ' already exists'
+		git branch --track ${remote##origin/} $remote 2>&1 | grep -v ' already exists'
+	done
+else
+	echo "	Git repo not detected."
+	echo "	The base cloning process seems to have failed."
+	exit 2
+fi
+
+exit 0

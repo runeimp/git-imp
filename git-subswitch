@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+###################
+# git-subswitch v1.0.0
+#
+# @author RuneImp <runeimp@gmail.com>
+# @licenses http://opensource.org/licenses/MIT
+# @dependency BASHimp
+#
+###
+# ChangeLog
+# ---------
+# 2015-06-??  1.0.0       Initial script creation
+#
+
+
+#
+# Setup Version Info
+#
+BASHIMP_VER_NUMBER='0.1.0'
+BASHIMP_VER_LABEL="Git Subswitch v$BASHIMP_VER_NUMBER"
+
+#
+# Configure OPTIONimp mode of BASHimp
+#
+read -r -d '' OPTIONIMP_CONF <<'HEREDOC_EOD'
+--basepath      $base_path       optional   Specify the path to the submodules to manage
+-p, --pull      $switch_pull     boolean    Do a git pull after switching the branch.
+HEREDOC_EOD
+
+#
+# Load BASHimp
+#
+source bashimp
+
+
+if [ ${#OPTIONIMP_ARGUMENTS[@]} -eq 0 ]; then
+	echo "You must specify the branch to switch to" 1>&2
+	exit 1
+else
+	switch_branch="${OPTIONIMP_ARGUMENTS[0]}"
+fi
+
+# echo "\${base_path}: ${base_path}"
+# echo "\${switch_pull}: ${switch_pull}"
+# echo "\${OPTIONIMP_ARGUMENTS[@]}: ${OPTIONIMP_ARGUMENTS[@]} [${#OPTIONIMP_ARGUMENTS[@]}]"
+
+if [ -n "$base_path" ]; then
+	cd "$base_path"
+fi
+
+for submodule in $(ls)
+do
+	echo "submodule: $submodule"
+	cd "$submodule"
+	git checkout "$switch_branch"
+	if [ $switch_pull == true ]; then
+		git pull
+	fi
+	cd ..
+done

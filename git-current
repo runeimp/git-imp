@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+###################
+# git-current v1.0.0
+#
+# Outputs the current branch active in git.
+#
+# @author RuneImp <runeimp@gmail.com>
+# @licenses http://opensource.org/licenses/MIT
+#
+###
+# ChangeLog
+# ---------
+# 2015-07-15  1.0.0       Initial script creation
+#
+
+
+while read -r line
+do
+	if [[ "$line" =~ ^[*][[:blank:]](.+)$ ]]; then
+		echo "${BASH_REMATCH[1]}"
+	fi
+done <<< "$(git branch)"
+
